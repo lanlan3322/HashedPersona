@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
@@ -14,7 +15,7 @@ import web3 from 'web3';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { marketAddress } from '/Address';
-import Marketplace from '/artifacts/contracts/Marketplace.sol/Marketplace.json';
+import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 
 const Home = () => {
   const theme = useTheme();
@@ -26,9 +27,7 @@ const Home = () => {
   }, []);
 
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      'https://rpc-mumbai.maticvigil.com',
-    );
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const marketContract = new ethers.Contract(
       marketAddress,
       Marketplace.abi,
@@ -81,13 +80,72 @@ const Home = () => {
     loadNFTs();
   }
 
+  async function MintHPHeros() {
+    let cost = CONFIG.WEI_COST;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmount);
+    let totalGasLimit = String(gasLimit * mintAmount);
+    console.log("Cost: ", totalCostWei);
+    console.log("Gas limit: ", totalGasLimit);
+    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNft(true);
+    blockchain.smartContract.methods
+      .paidMint()
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once("error", (err) => {
+        console.log(err);
+        setFeedback("Sorry, something went wrong please try again later.");
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  }
+  
   if (loaded && !nfts.length)
     return (
       <Main>
+    <Box
+    display="flex"
+    flexDirection={{ xs: 'column', md: 'row' }}
+    alignItems={{ xs: 'center', md: 'flex-start' }}
+    justifyContent={{ xs: 'center' }}
+    >
+    <Box
+      component={'img'}
+      src={'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
+      }
+      height={54}
+      sx={{
+        maxWidth: 422,
+      }}
+    />
+    <Box
+      component={Button}
+      variant="contained"
+      color="primary"
+      size="large"
+      height={54}
+      marginLeft={{ md: 2 }}
+      onClick="MintHPHeros()"
+    >
+      Mint Hashed Persona Super Heros
+    </Box>
+  </Box>
         <Container>
           <Hero />
         </Container>
-        <Box
+         <Box
           position={'relative'}
           marginTop={{ xs: 4, md: 6 }}
           sx={{
@@ -117,13 +175,40 @@ const Home = () => {
             ></path>
           </Box>
         </Box>
-        <Container>
+       <Container>
           <Contact />
         </Container>
       </Main>
     );
   return (
     <Main>
+    <Box
+    display="flex"
+    flexDirection={{ xs: 'column', md: 'row' }}
+    alignItems={{ xs: 'center', md: 'flex-start' }}
+    justifyContent={{ xs: 'center' }}
+    >
+    <Box
+      component={'img'}
+      src={'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
+      }
+      height={54}
+      sx={{
+        maxWidth: 422,
+      }}
+    />
+    <Box
+      component={Button}
+      variant="contained"
+      color="primary"
+      size="large"
+      height={54}
+      marginLeft={{ md: 2 }}
+      onClick="MintHPHeros()"
+    >
+      Mint Hashed Persona Super Heros
+    </Box>
+  </Box>
       <Container>
         <Hero />
       </Container>

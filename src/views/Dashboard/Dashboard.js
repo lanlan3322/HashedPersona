@@ -11,9 +11,8 @@ import Contact from 'components/Contact';
 import web3 from 'web3';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
-import { marketAddress, nftAddress } from '/Address';
-import Marketplace from '/artifacts/contracts/Marketplace.sol/Marketplace.json';
-import NFT from '/artifacts/contracts/NFT.sol/NFT.json';
+import { marketAddress } from '/Address';
+import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 import { ethers } from 'ethers';
 
 export default function Dashboard() {
@@ -30,14 +29,15 @@ export default function Dashboard() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+    const addr = await signer.getAddress();
 
     const marketContract = new ethers.Contract(
       marketAddress,
       Marketplace.abi,
       signer,
     );
-    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
-    const data = await marketContract.fetchMyNFTs();
+    const tokenContract = new ethers.Contract(hpAddress, HashedPersona.abi, provider);
+    const data = await marketContract.fetchMyNFTs(addr);
 
     const items = await Promise.all(
       data.map(async (i) => {
