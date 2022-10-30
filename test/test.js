@@ -1,6 +1,6 @@
 describe('NFTMarket', function () {
   it('Should interact with the token contract', async function () {
-    const marketplaceContract = await ethers.getContractFactory('Marketplace');
+    const marketplaceContract = await ethers.getContractFactory('HashedPersona');
     const marketplace = await marketplaceContract.deploy();
     await marketplace.deployed();
     const marketAddress = marketplace.address;

@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
           />
           <meta
             property="og:title"
-            content="NFT Marketplace"
+            content="HashedPersona"
           />
           <meta
             property="og:description"

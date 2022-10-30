@@ -12,13 +12,14 @@ import SendIcon from '@mui/icons-material/Send';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 
 import web3 from 'web3';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 import { marketAddress } from '/Address';
-import Marketplace from '/artifacts/contracts/Marketplace.sol/Marketplace.json';
+import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 
 const validationSchema = yup.object({
   name: yup
@@ -82,7 +83,7 @@ const Form = () => {
   async function createSale(url) {
     if (fileUrl) {
       const web3Modal = new Web3Modal({
-        network: 'mainnet',
+        network: 'goerli',
         cacheProvider: true,
       });
       const connection = await web3Modal.connect();
@@ -122,7 +123,7 @@ const Form = () => {
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `https://infura-ipfs.io/ipfs/${added.path}`;
       setFileUrl(url);
       console.log('----------------', fileUrl);
     } catch (error) {
@@ -143,7 +144,7 @@ const Form = () => {
     });
     try {
       const added = await client.add(data);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `https://infura-ipfs.io/ipfs/${added.path}`;
       createSale(url);
     } catch (error) {
       console.log('Error uploading file: ', error);
@@ -260,7 +261,7 @@ const Form = () => {
               Price
             </Typography>
             <TextField
-              label="Price in Matic *"
+              label="Price in ETH *"
               variant="outlined"
               name={'price'}
               fullWidth
@@ -312,7 +313,7 @@ const Form = () => {
           </Grid>
         </Grid>
       </form>
-    </Box>
+     </Box>
   );
 };
 

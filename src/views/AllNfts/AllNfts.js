@@ -11,7 +11,7 @@ import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import { marketAddress } from '/Address';
-import Marketplace from '/artifacts/contracts/Marketplace.sol/Marketplace.json';
+import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 
 const AllNfts = () => {
   const theme = useTheme();
@@ -23,9 +23,7 @@ const AllNfts = () => {
   }, []);
 
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      'https://rpc-mumbai.maticvigil.com',
-    );
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const marketContract = new ethers.Contract(
       marketAddress,
       Marketplace.abi,
