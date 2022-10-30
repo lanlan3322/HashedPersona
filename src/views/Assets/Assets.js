@@ -11,7 +11,7 @@ import Contact from 'components/Contact';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { marketAddress } from '/Address';
-import Marketplace from '/artifacts/contracts/Marketplace.sol/Marketplace.json';
+import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 import { ethers } from 'ethers';
 
 export default function CreateItem() {
@@ -31,14 +31,14 @@ export default function CreateItem() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+    const addr = await signer.getAddress();
 
     const marketContract = new ethers.Contract(
       marketAddress,
       Marketplace.abi,
       signer,
     );
-    const data = await marketContract.fetchMyNFTs();
-    console.log(data);
+    const data = await marketContract.fetchMyNFTs(addr);
 
     const items = await Promise.all(
       data.map(async (i) => {
