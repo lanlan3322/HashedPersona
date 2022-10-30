@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 
 const Hero = () => {
   const theme = useTheme();
+  const { mode } = theme.palette;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -31,7 +32,7 @@ const Hero = () => {
                   fontWeight: 700,
                 }}
               >
-                Discover, collect, and sell extraordinary NFTs
+                Create, collect, and connect extraordinary NFTs
               </Typography>
             </Box>
           </Box>
@@ -47,7 +48,9 @@ const Hero = () => {
               <Box
                 component={'img'}
                 src={
-                  'https://images.unsplash.com/photo-1569172122301-bc5008bc09c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+                  mode === 'light'
+                  ? 'https://gateway.pinata.cloud/ipfs/QmSYARfdcTK1xYsGzuN8VQXJif5hZuLD2Tf7jHxH8qowdY'
+                  : 'https://gateway.pinata.cloud/ipfs/QmeUJDYN6Hx6ebV9j2oYnpqwPiHRLLp5XxZ51gfpYejo6s'
                 }
                 width={1}
                 height={1}

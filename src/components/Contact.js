@@ -14,7 +14,7 @@ const Contact = () => {
           align={'center'}
           gutterBottom
         >
-          Subscribe to our newsletter
+          Import your NFT collection
         </Typography>
         <Typography
           variant={'h6'}
@@ -22,7 +22,7 @@ const Contact = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Get real time updates and news.
+          Show your NFTs for your fans to collect (ERC721).
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -45,7 +45,7 @@ const Contact = () => {
             <Box
               flex={'1 1 auto'}
               component={TextField}
-              label="Enter your email"
+              label="Enter your NFT address here"
               variant="outlined"
               color="primary"
               fullWidth
@@ -63,7 +63,7 @@ const Contact = () => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              Submit
+              Import
             </Box>
           </Box>
         </Box>

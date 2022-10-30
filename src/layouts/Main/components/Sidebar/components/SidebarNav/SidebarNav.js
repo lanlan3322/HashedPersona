@@ -23,9 +23,9 @@ const SidebarNav = ({ pages }) => {
             component={'img'}
             src={
               mode === 'light'
-                ? 'https://firebasestorage.googleapis.com/v0/b/virtualground-meta.appspot.com/o/nft%2Fnft.png?alt=media&token=58741d5d-9f34-4884-a30e-3cb24c0f2028'
-                : 'https://firebasestorage.googleapis.com/v0/b/virtualground-meta.appspot.com/o/nft%2Fnft.png?alt=media&token=58741d5d-9f34-4884-a30e-3cb24c0f2028'
-            }
+              ? 'https://gateway.pinata.cloud/ipfs/QmSYARfdcTK1xYsGzuN8VQXJif5hZuLD2Tf7jHxH8qowdY'
+              : 'https://gateway.pinata.cloud/ipfs/QmeUJDYN6Hx6ebV9j2oYnpqwPiHRLLp5XxZ51gfpYejo6s'
+        }
             height={1}
             width={1}
           />
