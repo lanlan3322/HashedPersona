@@ -15,7 +15,7 @@ import axios from 'axios';
 import web3 from 'web3';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
-import { marketAddress } from '/Address';
+import { marketAddress, herosAddress } from '/Address';
 import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 
 const Home = () => {
@@ -92,7 +92,7 @@ const Home = () => {
       "function paidMint() payable"
     ];
     const marketContract = new ethers.Contract(
-      "0xBA00184dD17576506e28948609b9CC22d753f69e",
+      herosAddress,
       abi,
       signer,
     );
