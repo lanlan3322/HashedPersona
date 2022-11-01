@@ -136,10 +136,10 @@ export default function CreateItem() {
   return (
     <Main>
       <Container>
-        <Hero title="A platform to create and trade NFTs." />
+        <Hero title="Create and share NFTs." />
       </Container>
       <Container paddingY={'0 !important'}>
-        <PortfolioGrid data={nfts} buttonName="List For Sale" />
+        <PortfolioGrid data={nfts} buttonName="List For Share" />
       </Container>
       <Container paddingY={'0 !important'}>
         <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
