@@ -18,7 +18,7 @@ import { Network, Alchemy } from 'alchemy-sdk';
 
 // Optional Config object, but defaults to demo api-key and eth-mainnet.
 const settings = {
-  apiKey: "McY_DDyN9nUHRtLkycSCq_oc6ux_Va1Y",
+  apiKey: "",
   network: Network.ETH_GOERLI,
 };
 const alchemy = new Alchemy(settings);
