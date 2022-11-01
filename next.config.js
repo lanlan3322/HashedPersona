@@ -5,5 +5,6 @@ module.exports = {
     INFURA_IPFS_SECRET: process.env.INFURA_IPFS_SECRET,
     PRIVATE_KEY: process.env.PRIVATE_KEY,
     MUMBAI_URL: process.env.MUMBAI_URL,
+    REACT_APP_PRIVATE_KEY: process.env.REACT_APP_PRIVATE_KEY,
   },
 };
