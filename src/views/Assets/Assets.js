@@ -13,14 +13,13 @@ import Web3Modal from 'web3modal';
 import { marketAddress } from '/Address';
 import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 import { ethers } from 'ethers';
+import { Network, Alchemy } from 'alchemy-sdk';
 
-const { Network, Alchemy } = require("alchemy-sdk");
 
 // Optional Config object, but defaults to demo api-key and eth-mainnet.
 const settings = {
-  apiKey: process.env.REACT_APP_PRIVATE_KEY, // Replace with your Alchemy API Key.
-  network: Network.ETH_GOERLI, // Replace with your network.
-  maxRetries: 10,
+  apiKey: "McY_DDyN9nUHRtLkycSCq_oc6ux_Va1Y",
+  network: Network.ETH_GOERLI,
 };
 const alchemy = new Alchemy(settings);
 
@@ -70,28 +69,24 @@ export default function CreateItem() {
     setNfts(items);
 
     //fetch all NFTs from opensea
-    const nftsForOwner = await getNftsForOwner(alchemy, addr);
+    const nftsForOwner = await alchemy.nft.getNftsForOwner(addr);
+    console.log(nftsForOwner);
     const collections = await Promise.all(
       nftsForOwner.ownedNfts.map(async (i) => {
-        const response = await getNftMetadata(
-          alchemy,
-          i.contract.address,
-          i.nft.tokenId
-        );  
         let collection = {
-          title: response.title,
-          tokenId: i.nft.tokenId.toNumber(),
-          type: response.tokenType,
+          title: i.title,
+          tokenId: i.tokenId,
+          type: i.tokenType,
           owner: addr,
-          image: response.rawMetadata.image,
-          tokenURI: response.tokenUri.gateway,
-          timelastupdate: response.timeLastUpdated,
+          image: i.rawMetadata.image,
+          tokenURI: i.tokenUri.gateway,
+          timelastupdate: i.timeLastUpdated,
         };
         return collection;
       }),
     );
 
-    setOpensea(collection);
+    setOpensea(collections);
 
     setLoaded(true);
   }

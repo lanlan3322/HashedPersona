@@ -142,7 +142,7 @@ const Home = () => {
       View Hashed Persona Super Heros
     </Box>
     <Box
-      disabled={claimingNft ? 1 : 0}
+      disabled={claimingNft ? true : false}
       component={Button}
       variant="contained"
       color="primary"
@@ -224,7 +224,7 @@ const Home = () => {
       View Hashed Persona Super Heros
     </Box>
     <Box
-      disabled={claimingNft ? 1 : 0}
+      disabled={claimingNft ? true : false}
       component={Button}
       variant="contained"
       color="primary"
