@@ -32,7 +32,7 @@ const Hero = () => {
                   fontWeight: 700,
                 }}
               >
-                Create, collect, and connect extraordinary NFTs
+                Create, collect, and connect extraordinary Hashed Personas
               </Typography>
             </Box>
           </Box>
