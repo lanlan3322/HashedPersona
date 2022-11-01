@@ -15,7 +15,6 @@ import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.js
 import { ethers } from 'ethers';
 import { Network, Alchemy } from 'alchemy-sdk';
 
-
 // Optional Config object, but defaults to demo api-key and eth-mainnet.
 const settings = {
   apiKey: process.env.REACT_APP_PRIVATE_KEY,
