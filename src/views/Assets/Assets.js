@@ -24,7 +24,7 @@ import {
 
 // Optional Config object, but defaults to demo api-key and eth-mainnet.
 const settings = {
-  apiKey: "McY_DDyN9nUHRtLkycSCq_oc6ux_Va1Y", // Replace with your Alchemy API Key.
+  apiKey: process.env.REACT_APP_PRIVATE_KEY, // Replace with your Alchemy API Key.
   network: Network.ETH_GOERLI, // Replace with your network.
   maxRetries: 10,
 };
