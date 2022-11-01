@@ -13,16 +13,33 @@ import Web3Modal from 'web3modal';
 import { marketAddress } from '/Address';
 import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 import { ethers } from 'ethers';
+import {
+  Network,
+  initializeAlchemy,
+  getNftsForOwner,
+  getNftMetadata,
+  BaseNft,
+  NftTokenType,
+} from "alchemy-sdk";
+
+// Optional Config object, but defaults to demo api-key and eth-mainnet.
+const settings = {
+  apiKey: "McY_DDyN9nUHRtLkycSCq_oc6ux_Va1Y", // Replace with your Alchemy API Key.
+  network: Network.ETH_GOERLI, // Replace with your network.
+  maxRetries: 10,
+};
+const alchemy = new Alchemy(settings);
 
 export default function CreateItem() {
   const theme = useTheme();
   const [nfts, setNfts] = useState([]);
+  const [nftsOpensea, setOpensea] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     loadNFTs();
   }, []);
-
+  
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
       network: 'mainnet',
@@ -57,10 +74,35 @@ export default function CreateItem() {
       }),
     );
     setNfts(items);
+
+    //fetch all NFTs from opensea
+    const nftsForOwner = await getNftsForOwner(alchemy, addr);
+    const collections = await Promise.all(
+      nftsForOwner.ownedNfts.map(async (i) => {
+        const response = await getNftMetadata(
+          alchemy,
+          i.contract.address,
+          i.nft.tokenId
+        );  
+        let collection = {
+          title: response.title,
+          tokenId: i.nft.tokenId.toNumber(),
+          type: response.tokenType,
+          owner: addr,
+          image: response.rawMetadata.image,
+          tokenURI: response.tokenUri.gateway,
+          timelastupdate: response.timeLastUpdated,
+        };
+        return collection;
+      }),
+    );
+
+    setOpensea(collection);
+
     setLoaded(true);
   }
 
-  if (loaded && !nfts.length) {
+  if (loaded && !nfts.length && !nftsOpensea.length) {
     return (
       <Main>
         <Container>
@@ -110,6 +152,9 @@ export default function CreateItem() {
       </Container>
       <Container paddingY={'0 !important'}>
         <PortfolioGrid data={nfts} buttonName="List For Sale" />
+      </Container>
+      <Container paddingY={'0 !important'}>
+        <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
       </Container>
       <Box
         position={'relative'}
