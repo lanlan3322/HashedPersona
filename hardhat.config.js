@@ -48,7 +48,7 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      goerli: '2987HCA4Y7YZU9B6CUQ56VDCYWHFJ5EHNZ'
+      goerli: ''
     }
   }
 };
