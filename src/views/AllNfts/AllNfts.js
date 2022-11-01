@@ -10,12 +10,20 @@ import PortfolioGrid from 'components/PortfolioGrid';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
-import { marketAddress } from '/Address';
+import { marketAddress, herosAddress } from '/Address';
 import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
+import { Network, Alchemy } from 'alchemy-sdk';
 
+// Optional Config object, but defaults to demo api-key and eth-mainnet.
+const settings = {
+  apiKey: process.env.REACT_APP_PRIVATE_KEY,
+  network: Network.ETH_GOERLI,
+};
+const alchemy = new Alchemy(settings);
 const AllNfts = () => {
   const theme = useTheme();
   const [nfts, setNfts] = useState([]);
+  const [nftsOpensea, setOpensea] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -53,6 +61,26 @@ const AllNfts = () => {
       console.log('items: ', items);
     }
     setNfts(items);
+
+        //fetch all NFTs from opensea
+        const nftsForOwner = await alchemy.nft.getNftsForContract(herosAddress);
+        console.log(nftsForOwner);
+        const collections = await Promise.all(
+          nftsForOwner.nfts.map(async (i) => {
+            let collection = {
+              title: i.title,
+              tokenId: i.tokenId,
+              type: i.tokenType,
+              owner: i.contract.address,
+              image: i.rawMetadata.image,
+              tokenURI: i.tokenUri.gateway,
+              timelastupdate: i.timeLastUpdated,
+            };
+            return collection;
+          }),
+        );
+    
+        setOpensea(collections);
     setLoaded(true);
   }
 
@@ -76,7 +104,7 @@ const AllNfts = () => {
     loadNFTs();
   }
 
-  if (loaded && !nfts.length)
+  if (loaded && !nfts.length && !nftsOpensea.length) 
     return (
       <Main>
         <Box
@@ -118,6 +146,9 @@ const AllNfts = () => {
     <Main>
       <Container>
         <PortfolioGrid data={nfts} buttonName={'Buy'} buttonFunc={buyNft} />
+      </Container>
+      <Container paddingY={'0 !important'}>
+        <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
       </Container>
       <Box
         position={'relative'}

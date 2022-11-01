@@ -111,7 +111,7 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                     </Box>
                     <Typography variant={'subtitle2'} color="text.secondary">
                       <Link href={item.type} underline="none">
-                      {item.title}
+                      {item.owner}
                       </Link>
                     </Typography>
                   </Box>
@@ -134,7 +134,7 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                         </Box>
                       }
                     >
-                      {buttonName}
+                      {item.title}
                     </Button>
                   </CardActions>
                 </CardContent>
