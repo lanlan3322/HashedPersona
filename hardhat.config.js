@@ -39,7 +39,7 @@ module.exports = {
     },
     goerli: {
       url: process.env.REACT_APP_ALCHEMY_API_URL,
-      accounts: [ process.env.REACT_APP_PRIVATE_KEY ]
+      accounts: [ process.env.REACT_APP_ALCHEMY_PRIVATE_KEY ]
     }
   },
   gasReporter: {
