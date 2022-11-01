@@ -54,7 +54,7 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                       borderRadius={2}
                     >
                       <Typography sx={{ fontWeight: 600 }}>
-                        {item.price} ETH
+                        No. {item.tokenId}
                       </Typography>
                     </Box>
                     <Box
@@ -110,8 +110,8 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                       <LinkIcon />
                     </Box>
                     <Typography variant={'subtitle2'} color="text.secondary">
-                      <Link href={item.address} underline="none">
-                        Link to NFT
+                      <Link href={item.type} underline="none">
+                      {item.title}
                       </Link>
                     </Typography>
                   </Box>
