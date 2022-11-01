@@ -26,17 +26,20 @@ const validationSchema = yup.object({
     .string()
     .trim()
     .min(2, 'Name too short')
-    .max(50, 'Name too long')
+    .max(100, 'Name too long')
     .required('Please specify the name'),
   description: yup
     .string()
     .trim()
     .max(1000, 'Should be less than 1000 chars')
     .required('Please write description'),
+  amount: yup
+    .string()
+    .min(1, 'Minimum 1 in the collection')
+    .required('Please specify how many NFTs in this collection'),
   price: yup
     .string()
-    .min(0, 'Price should be minimum 0')
-    .required('Please specify NFT price'),
+    .min(0, 'Price should be minimum 0'),
   address: yup
     .string()
     .min(0, 'Price should be minimum 3')
@@ -51,7 +54,11 @@ const Form = () => {
     initialValues: {
       name: '',
       description: '',
-      price: '',
+      amount: '',
+      twitter: '',
+      linkedin: '',
+      website: '',
+      price: '0',
       address: '',
     },
     validationSchema: validationSchema,
@@ -98,9 +105,7 @@ const Form = () => {
       );
       let listingPrice = await contract.getListingPrice();
       listingPrice = listingPrice.toString();
-      let transaction = await contract.createToken(url, price, {
-        value: listingPrice,
-      });
+      let transaction = await contract.createTokenCollection(url, formik.values.amount);
 
       try {
         await transaction.wait();
@@ -133,12 +138,17 @@ const Form = () => {
   }
 
   async function createMarket() {
-    const { name, description, price, address } = formik.values;
-    if (!name || !description || !price || !fileUrl) return;
+    const { name, description, amount, twitter, linkedin, website, price, address } = formik.values;
+    if (!name || !description|| !amount || !twitter || !linkedin || !website || !fileUrl) return;
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name,
       description,
+      amount,
+      twitter,
+      linkedin,
+      website,
+      price,
       address,
       image: fileUrl,
     });
@@ -214,7 +224,7 @@ const Form = () => {
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
-              NFT Name
+              Hashed Persona Collection Name
             </Typography>
             <TextField
               label="Name of your NFT *"
@@ -233,7 +243,7 @@ const Form = () => {
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
-              Description
+              Description of this collection
             </Typography>
             <TextField
               label="Description *"
@@ -258,17 +268,17 @@ const Form = () => {
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
-              Price
+              NFT Quantity in this collection
             </Typography>
             <TextField
-              label="Price in ETH *"
+              label="How many NFTs in this collection"
               variant="outlined"
-              name={'price'}
+              name={'amount'}
               fullWidth
               onChange={formik.handleChange}
-              value={formik.values?.price}
-              error={formik.touched.price && Boolean(formik.errors.price)}
-              helperText={formik.touched.price && formik.errors.price}
+              value={formik.values?.amount}
+              error={formik.touched.amount && Boolean(formik.errors.amount)}
+              helperText={formik.touched.amount && formik.errors.amount}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -277,7 +287,64 @@ const Form = () => {
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
-              Link
+              Twitter
+            </Typography>
+            <TextField
+              label="Twitter"
+              variant="outlined"
+              name={'twitter'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.twitter}
+              error={formik.touched.twitter && Boolean(formik.errors.twitter)}
+              helperText={formik.touched.twitter && formik.errors.twitter}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              LinkedIn
+            </Typography>
+            <TextField
+              label="LinkedIn"
+              variant="outlined"
+              name={'linkedin'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.linkedin}
+              error={formik.touched.linkedin && Boolean(formik.errors.linkedin)}
+              helperText={formik.touched.linkedin && formik.errors.linkedin}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Website
+            </Typography>
+            <TextField
+              label="Website address"
+              variant="outlined"
+              name={'website'}
+              fullWidth
+              onChange={formik.handleChange}
+              value={formik.values?.website}
+              error={formik.touched.website && Boolean(formik.errors.website)}
+              helperText={formik.touched.website && formik.errors.website}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Link to this collection
             </Typography>
             <TextField
               label="Link to your NFT"

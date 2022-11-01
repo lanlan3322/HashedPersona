@@ -9,6 +9,7 @@ import HomeGrid from 'components/HomeGrid';
 import Contact from 'components/Contact';
 import Hero from './components/Hero';
 import FeaturedNfts from './components/FeaturedNfts';
+import TextField from '@mui/material/TextField';
 
 import axios from 'axios';
 import web3 from 'web3';
@@ -21,6 +22,8 @@ const Home = () => {
   const theme = useTheme();
   const [nfts, setNfts] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [claimingNft, setClaimingNft] = useState(false);
+  const [feedback, setFeedback] = useState(`Click here to mint your hero`);
 
   useEffect(() => {
     loadNFTs();
@@ -81,35 +84,32 @@ const Home = () => {
   }
 
   async function MintHPHeros() {
-    let cost = CONFIG.WEI_COST;
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit * mintAmount);
-    console.log("Cost: ", totalCostWei);
-    console.log("Gas limit: ", totalGasLimit);
-    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const abi = [
+      "function paidMint() payable"
+    ];
+    const marketContract = new ethers.Contract(
+      "0xBA00184dD17576506e28948609b9CC22d753f69e",
+      abi,
+      signer,
+    );
     setClaimingNft(true);
-    blockchain.smartContract.methods
-      .paidMint()
-      .send({
-        gasLimit: String(totalGasLimit),
-        to: CONFIG.CONTRACT_ADDRESS,
-        from: blockchain.account,
-        value: totalCostWei,
-      })
-      .once("error", (err) => {
-        console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
-        setClaimingNft(false);
-      })
-      .then((receipt) => {
-        console.log(receipt);
-        setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
-        );
-        setClaimingNft(false);
-        dispatch(fetchData(blockchain.account));
-      });
+    setFeedback(
+      `Please wait ... minting now ... ...`
+    );
+    /* user will be prompted to pay the asking proces to complete the transaction */
+    const price = ethers.utils.parseUnits('0.01', 'ether');
+    const transaction = await marketContract.paidMint({
+      value: price,
+    });
+    await transaction.wait();
+    setFeedback(
+      `Click here to mint your hero`
+    );
+    setClaimingNft(false);
   }
   
   if (loaded && !nfts.length)
@@ -137,9 +137,24 @@ const Home = () => {
       size="large"
       height={54}
       marginLeft={{ md: 2 }}
-      onClick="MintHPHeros()"
+      href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
     >
-      Mint Hashed Persona Super Heros
+      View Hashed Persona Super Heros
+    </Box>
+    <Box
+      disabled={claimingNft ? 1 : 0}
+      component={Button}
+      variant="contained"
+      color="primary"
+      size="large"
+      height={54}
+      marginLeft={{ md: 2 }}
+      onClick={(e) => {
+        e.preventDefault();
+        MintHPHeros();
+      }}
+    >
+      {feedback}
     </Box>
   </Box>
         <Container>
@@ -204,9 +219,24 @@ const Home = () => {
       size="large"
       height={54}
       marginLeft={{ md: 2 }}
-      onClick="MintHPHeros()"
+      href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
     >
-      Mint Hashed Persona Super Heros
+      View Hashed Persona Super Heros
+    </Box>
+    <Box
+      disabled={claimingNft ? 1 : 0}
+      component={Button}
+      variant="contained"
+      color="primary"
+      size="large"
+      height={54}
+      marginLeft={{ md: 2 }}
+      onClick={(e) => {
+        e.preventDefault();
+        MintHPHeros();
+      }}
+    >
+      {feedback}
     </Box>
   </Box>
       <Container>
