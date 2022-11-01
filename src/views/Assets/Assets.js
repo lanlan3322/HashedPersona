@@ -18,7 +18,7 @@ import { Network, Alchemy } from 'alchemy-sdk';
 
 // Optional Config object, but defaults to demo api-key and eth-mainnet.
 const settings = {
-  apiKey: "",
+  apiKey: process.env.REACT_APP_PRIVATE_KEY,
   network: Network.ETH_GOERLI,
 };
 const alchemy = new Alchemy(settings);
