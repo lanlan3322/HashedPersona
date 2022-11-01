@@ -13,14 +13,8 @@ import Web3Modal from 'web3modal';
 import { marketAddress } from '/Address';
 import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.json';
 import { ethers } from 'ethers';
-import {
-  Network,
-  initializeAlchemy,
-  getNftsForOwner,
-  getNftMetadata,
-  BaseNft,
-  NftTokenType,
-} from "alchemy-sdk";
+
+const { Network, Alchemy } = require("alchemy-sdk");
 
 // Optional Config object, but defaults to demo api-key and eth-mainnet.
 const settings = {

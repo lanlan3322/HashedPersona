@@ -49,6 +49,7 @@
     "@walletconnect/web3-provider": "^1.8.0",
     "aos": "^2.3.4",
     "axios": "^0.27.2",
+    "alchemy-sdk": "2.2.0",
     "card-validator": "^8.1.1",
     "chai": "^4.3.6",
     "dotenv": "^16.0.1",
