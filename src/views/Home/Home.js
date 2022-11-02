@@ -9,6 +9,8 @@ import HomeGrid from 'components/HomeGrid';
 import Contact from 'components/Contact';
 import Hero from './components/Hero';
 import FeaturedNfts from './components/FeaturedNfts';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
 
 import axios from 'axios';
 import web3 from 'web3';
