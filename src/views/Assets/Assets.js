@@ -78,7 +78,7 @@ export default function CreateItem() {
           type: i.tokenType,
           owner: addr,
           image: i.rawMetadata.image,
-          tokenURI: i.tokenUri.gateway,
+          tokenURI: i.tokenUri,
           timelastupdate: i.timeLastUpdated,
         };
         return collection;
