@@ -53,9 +53,9 @@ export default function CreateItem() {
       data.map(async (i) => {
         const tokenURI = await marketContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenURI);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+        //let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
-          price,
+          price: '0.001',
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
@@ -138,9 +138,11 @@ export default function CreateItem() {
       <Container>
         <Hero title="Create and share NFTs." />
       </Container>
+      <hr/>
       <Container paddingY={'0 !important'}>
         <PortfolioGrid data={nfts} buttonName="List For Share" />
       </Container>
+      <hr/>
       <Container paddingY={'0 !important'}>
         <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
       </Container>

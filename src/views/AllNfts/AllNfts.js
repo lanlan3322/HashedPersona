@@ -43,9 +43,9 @@ const AllNfts = () => {
       data.map(async (i) => {
         const tokenUri = await marketContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+        //let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
-          price,
+          price: '0.001',
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
@@ -73,7 +73,7 @@ const AllNfts = () => {
               type: i.tokenType,
               owner: i.contract.address,
               image: i.rawMetadata.image,
-              tokenURI: i.tokenUri.gateway,
+              tokenURI: i.tokenUri,
               timelastupdate: i.timeLastUpdated,
             };
             return collection;

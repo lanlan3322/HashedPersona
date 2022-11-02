@@ -23,6 +23,7 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click here to mint your hero`);
+  const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
     loadNFTs();
@@ -41,9 +42,9 @@ const Home = () => {
       data.map(async (i) => {
         const tokenUri = await marketContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+        //let price = ethers.utils.formatUnits('0.001', 'ether');
         let item = {
-          price,
+          price: '0.001',
           tokenId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
@@ -97,6 +98,7 @@ const Home = () => {
     );
     console.log("Connected Account:", await signer.getAddress());
     setClaimingNft(true);
+    setLoading(true);
     setFeedback(
       `Please wait ... minting now ... ...`
     );
@@ -104,20 +106,18 @@ const Home = () => {
     const price = ethers.utils.parseUnits('0.01', 'ether');
     const transaction = await marketContract.paidMint({
       value: price,
-    }).then((txHash) => {
-      console.log(txHash);
-    })
-    .then(() => {
-      alert('Minting successful! Please wait for the transaction to be confirmed.');
-    })
-    .catch(error => { 
-      alert('Minting failed!'); 
-      console.log(error);
     });
+    try {
+      await transaction.wait();
+    } catch (error) {
+      alert('Error in creating NFT! Please try again.');
+      setLoading(false);
+    }
     setFeedback(
       `Click here to mint your hero`
     );
     setClaimingNft(false);
+    setLoading(false);
   }
   
   if (loaded && !nfts.length)
@@ -162,7 +162,15 @@ const Home = () => {
         MintHPHeros();
       }}
     >
+              <LoadingButton
+                endIcon={<SendIcon />}
+                size={'large'}
+                variant={'contained'}
+                loading={loading}
+                loadingPosition={'end'}
+              >
       {feedback}
+              </LoadingButton>
     </Box>
   </Box>
         <Container>
