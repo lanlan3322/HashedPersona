@@ -25,7 +25,7 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click here to mint your hero`);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadNFTs();
