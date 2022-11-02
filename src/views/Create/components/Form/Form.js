@@ -103,8 +103,6 @@ const Form = () => {
         Marketplace.abi,
         signer,
       );
-      let listingPrice = await contract.getListingPrice();
-      listingPrice = listingPrice.toString();
       let transaction = await contract.createTokenCollection(url, formik.values.amount);
 
       try {
