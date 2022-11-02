@@ -9,7 +9,6 @@ import HomeGrid from 'components/HomeGrid';
 import Contact from 'components/Contact';
 import Hero from './components/Hero';
 import FeaturedNfts from './components/FeaturedNfts';
-import TextField from '@mui/material/TextField';
 
 import axios from 'axios';
 import web3 from 'web3';
@@ -96,6 +95,7 @@ const Home = () => {
       abi,
       signer,
     );
+    console.log("Connected Account:", await signer.getAddress());
     setClaimingNft(true);
     setFeedback(
       `Please wait ... minting now ... ...`
@@ -104,8 +104,16 @@ const Home = () => {
     const price = ethers.utils.parseUnits('0.01', 'ether');
     const transaction = await marketContract.paidMint({
       value: price,
+    }).then((txHash) => {
+      console.log(txHash);
+    })
+    .then(() => {
+      alert('Minting successful! Please wait for the transaction to be confirmed.');
+    })
+    .catch(error => { 
+      alert('Minting failed!'); 
+      console.log(error);
     });
-    await transaction.wait();
     setFeedback(
       `Click here to mint your hero`
     );
