@@ -252,7 +252,15 @@ const Home = () => {
         MintHPHeros();
       }}
     >
+              <LoadingButton
+                endIcon={<SendIcon />}
+                size={'large'}
+                variant={'contained'}
+                loading={loading}
+                loadingPosition={'end'}
+              >
       {feedback}
+              </LoadingButton>
     </Box>
   </Box>
       <Container>
