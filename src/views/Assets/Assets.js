@@ -7,6 +7,7 @@ import Container from 'components/Container';
 import Hero from 'components/Hero';
 import PortfolioGrid from 'components/PortfolioGrid';
 import Contact from 'components/Contact';
+import Typography from '@mui/material/Typography';
 
 import axios from 'axios';
 import Web3Modal from 'web3modal';
@@ -138,11 +139,57 @@ export default function CreateItem() {
       <Container>
         <Hero title="Create and share NFTs." />
       </Container>
-      <hr/>
-      <Container paddingY={'0 !important'}>
+      <Box marginBottom={4}>
+        <Typography
+          sx={{
+            textTransform: 'uppercase',
+            fontWeight: 'medium',
+          }}
+          gutterBottom
+          color={'secondary'}
+          align={'center'}
+        >
+          Collection details
+        </Typography>
+        <Typography
+          variant="h4"
+          align={'center'}
+          data-aos={'fade-up'}
+          gutterBottom
+          sx={{
+            fontWeight: 700,
+          }}
+        >
+          Browse my collections
+        </Typography>
+      </Box>
+      <Container paddingY={'0 !important'} marginBottom={6}>
         <PortfolioGrid data={nfts} buttonName="List For Share" />
       </Container>
-      <hr/>
+      <Box marginBottom={4}>
+        <Typography
+          sx={{
+            textTransform: 'uppercase',
+            fontWeight: 'medium',
+          }}
+          gutterBottom
+          color={'secondary'}
+          align={'center'}
+        >
+          Heros
+        </Typography>
+        <Typography
+          variant="h4"
+          align={'center'}
+          data-aos={'fade-up'}
+          gutterBottom
+          sx={{
+            fontWeight: 700,
+          }}
+        >
+          Browse my minted Heros
+        </Typography>
+      </Box>
       <Container paddingY={'0 !important'}>
         <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
       </Container>

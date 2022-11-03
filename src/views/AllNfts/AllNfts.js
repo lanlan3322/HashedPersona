@@ -6,6 +6,7 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Contact from 'components/Contact';
 import PortfolioGrid from 'components/PortfolioGrid';
+import Typography from '@mui/material/Typography';
 
 import axios from 'axios';
 import Web3Modal from 'web3modal';
@@ -144,9 +145,57 @@ const AllNfts = () => {
     );
   return (
     <Main>
+      <Box marginBottom={4}>
+        <Typography
+          sx={{
+            textTransform: 'uppercase',
+            fontWeight: 'medium',
+          }}
+          gutterBottom
+          color={'secondary'}
+          align={'center'}
+        >
+          Popular Collections
+        </Typography>
+        <Typography
+          variant="h4"
+          align={'center'}
+          data-aos={'fade-up'}
+          gutterBottom
+          sx={{
+            fontWeight: 700,
+          }}
+        >
+          Browse our popular NFT collections
+        </Typography>
+      </Box>
       <Container>
         <PortfolioGrid data={nfts} buttonName={'Buy'} buttonFunc={buyNft} />
       </Container>
+      <Box marginBottom={4}>
+        <Typography
+          sx={{
+            textTransform: 'uppercase',
+            fontWeight: 'medium',
+          }}
+          gutterBottom
+          color={'secondary'}
+          align={'center'}
+        >
+          Popular Heros
+        </Typography>
+        <Typography
+          variant="h4"
+          align={'center'}
+          data-aos={'fade-up'}
+          gutterBottom
+          sx={{
+            fontWeight: 700,
+          }}
+        >
+          Browse our popular minted Heros
+        </Typography>
+      </Box>
       <Container paddingY={'0 !important'}>
         <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
       </Container>
