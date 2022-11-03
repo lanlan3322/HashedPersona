@@ -9,8 +9,6 @@ import HomeGrid from 'components/HomeGrid';
 import Contact from 'components/Contact';
 import Hero from './components/Hero';
 import FeaturedNfts from './components/FeaturedNfts';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@mui/icons-material/Send';
 
 import axios from 'axios';
 import web3 from 'web3';
@@ -25,7 +23,6 @@ const Home = () => {
   const [loaded, setLoaded] = useState(false);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Click here to mint your hero`);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadNFTs();
@@ -77,11 +74,15 @@ const Home = () => {
       signer,
     );
     /* user will be prompted to pay the asking proces to complete the transaction */
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
-    const transaction = await marketContract.createMarketSale(nft.tokenId, {
-      value: price,
-    });
+    //const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
+    const transaction = await marketContract.collect(nft.tokenId);
     await transaction.wait();
+    if(transaction){
+      alert('You have mint the token for this collection successfully.');
+    }
+    else{
+      alert('Error in creating NFT! Please try again.');
+    }
     loadNFTs();
   }
 
@@ -100,10 +101,6 @@ const Home = () => {
     );
     console.log("Connected Account:", await signer.getAddress());
     setClaimingNft(true);
-    setLoading(true);
-    setFeedback(
-      `Please wait ... minting now ... ...`
-    );
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits('0.01', 'ether');
     const transaction = await marketContract.paidMint({
@@ -113,13 +110,14 @@ const Home = () => {
       await transaction.wait();
     } catch (error) {
       alert('Error in creating NFT! Please try again.');
-      setLoading(false);
+      setFeedback(
+        `Click here to mint your hero`
+      );
     }
     setFeedback(
       `Click here to mint your hero`
     );
     setClaimingNft(false);
-    setLoading(false);
   }
   
   if (loaded && !nfts.length)
@@ -161,19 +159,14 @@ const Home = () => {
       marginLeft={{ md: 2 }}
       onClick={(e) => {
         e.preventDefault();
+        setFeedback(
+          `Please wait ... minting now ... ...`
+        );
         MintHPHeros();
       }}
     >
-              <LoadingButton
-                endIcon={<SendIcon />}
-                size={'large'}
-                variant={'contained'}
-                loading={loading}
-                loadingPosition={'end'}
-              >
-      {feedback}
-              </LoadingButton>
-    </Box>
+                {feedback}
+            </Box>
   </Box>
         <Container>
           <Hero />
@@ -254,25 +247,14 @@ const Home = () => {
         MintHPHeros();
       }}
     >
-              <LoadingButton
-                endIcon={<SendIcon />}
-                size={'large'}
-                variant={'contained'}
-                loading={loading}
-                loadingPosition={'end'}
-              >
-      {feedback}
-              </LoadingButton>
+        {feedback}
     </Box>
   </Box>
       <Container>
         <Hero />
       </Container>
       <Container paddingY={3}>
-        <HomeGrid data={nfts} buttonName={'Buy'} buttonFunc={buyNft} />
-      </Container>
-      <Container>
-        <FeaturedNfts data={nfts} buttonFunc={buyNft} />
+        <HomeGrid data={nfts} buttonName={'Mint'} buttonFunc={buyNft} />
       </Container>
       <Box
         position={'relative'}
