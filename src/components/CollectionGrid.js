@@ -86,22 +86,22 @@ const CollectionGrid = ({ data = [], buttonFunc, buttonName }) => {
                   </Box>
                 </CardMedia>
                 <CardContent>
-                <Box>
-                  <Typography
-                    color={'primary'}
-                    fontWeight={700}
-                    variant={'caption'}
-                    sx={{ textTransform: 'uppercase' }}
-                  >
-                    Free
-                  </Typography>
-                  <Typography variant={'h5'} fontWeight={700} marginY={1}>
-                    {item.name}
-                  </Typography>
-                  <Typography color={'text.secondary'}>
-                    {item.description}
-                  </Typography>
-                      <TwitterIcon 
+                  <Box>
+                    <Typography
+                      color={'primary'}
+                      fontWeight={700}
+                      variant={'caption'}
+                      sx={{ textTransform: 'uppercase' }}
+                    >
+                      Free
+                    </Typography>
+                    <Typography variant={'h5'} fontWeight={700} marginY={1}>
+                      {item.name}
+                    </Typography>
+                    <Typography color={'text.secondary'}>
+                      {item.description}
+                    </Typography>
+                    <TwitterIcon
                       onClick={() => {
                         alert('Go to Twitter!');
                       }}
@@ -110,8 +110,8 @@ const CollectionGrid = ({ data = [], buttonFunc, buttonName }) => {
                         mt: { xs: 2, sm: 4 },
                         mr: { xs: 1, sm: 2 },
                       }}
-                          />
-                      <LinkedInIcon 
+                    />
+                    <LinkedInIcon
                       onClick={() => {
                         alert('Go to LinkedIn!');
                       }}
@@ -120,35 +120,35 @@ const CollectionGrid = ({ data = [], buttonFunc, buttonName }) => {
                         mt: { xs: 2, sm: 4 },
                         mr: { xs: 1, sm: 2 },
                       }}
-                      />
-                      <LinkIcon 
+                    />
+                    <LinkIcon
                       onClick={() => {
                         alert('Go to Website!');
                       }}
-                       sx={{
+                      sx={{
                         cursor: 'pointer',
                         mt: { xs: 2, sm: 4 },
                         mr: { xs: 1, sm: 2 },
                       }}
-                      />
-                  <Link
-                    onClick={() => {
-                      buttonFunc(item);
-                    }}
-                    variant={'subtitle2'}
-                    color={'primary'}
-                    fontWeight={700}
-                    underline={'hover'}
-                    sx={{
-                      textTransform: 'uppercase',
-                      display: 'block',
-                      cursor: 'pointer',
-                      mt: { xs: 2, sm: 4 },
-                    }}
-                  >
-                    {buttonName}
-                  </Link>
-                </Box>
+                    />
+                    <Link
+                      onClick={() => {
+                        buttonFunc(item);
+                      }}
+                      variant={'subtitle2'}
+                      color={'primary'}
+                      fontWeight={700}
+                      underline={'hover'}
+                      sx={{
+                        textTransform: 'uppercase',
+                        display: 'block',
+                        cursor: 'pointer',
+                        mt: { xs: 2, sm: 4 },
+                      }}
+                    >
+                      {buttonName}
+                    </Link>
+                  </Box>
                 </CardContent>
               </Box>
             </Box>

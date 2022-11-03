@@ -33,7 +33,7 @@ export default function CreateItem() {
   useEffect(() => {
     loadNFTs();
   }, []);
-  
+
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
       network: 'mainnet',
@@ -192,7 +192,10 @@ export default function CreateItem() {
         </Typography>
       </Box>
       <Container paddingY={'0 !important'}>
-        <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
+        <PortfolioGrid
+          data={nftsOpensea}
+          buttonName="My Hashed Persona Heros"
+        />
       </Container>
       <Box
         position={'relative'}

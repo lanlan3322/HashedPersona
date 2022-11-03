@@ -37,9 +37,7 @@ const validationSchema = yup.object({
     .string()
     .min(1, 'Minimum 1 in the collection')
     .required('Please specify how many NFTs in this collection'),
-  price: yup
-    .string()
-    .min(0, 'Price should be minimum 0'),
+  price: yup.string().min(0, 'Price should be minimum 0'),
   address: yup
     .string()
     .min(0, 'Price should be minimum 3')
@@ -103,7 +101,10 @@ const Form = () => {
         Marketplace.abi,
         signer,
       );
-      let transaction = await contract.createTokenCollection(url, formik.values.amount);
+      let transaction = await contract.createTokenCollection(
+        url,
+        formik.values.amount,
+      );
 
       try {
         await transaction.wait();
@@ -136,8 +137,26 @@ const Form = () => {
   }
 
   async function createMarket() {
-    const { name, description, amount, twitter, linkedin, website, price, address } = formik.values;
-    if (!name || !description|| !amount || !twitter || !linkedin || !website || !fileUrl) return;
+    const {
+      name,
+      description,
+      amount,
+      twitter,
+      linkedin,
+      website,
+      price,
+      address,
+    } = formik.values;
+    if (
+      !name ||
+      !description ||
+      !amount ||
+      !twitter ||
+      !linkedin ||
+      !website ||
+      !fileUrl
+    )
+      return;
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name,
@@ -378,7 +397,7 @@ const Form = () => {
           </Grid>
         </Grid>
       </form>
-     </Box>
+    </Box>
   );
 };
 

@@ -59,30 +59,29 @@ const AllNfts = () => {
         return item;
       }),
     );
-    {
-      console.log('items: ', items);
-    }
+
     setNfts(items);
 
-        //fetch all NFTs from opensea
-        const nftsForOwner = await alchemy.nft.getNftsForContract(herosAddress);
-        console.log(nftsForOwner);
-        const collections = await Promise.all(
-          nftsForOwner.nfts.map(async (i) => {
-            let collection = {
-              title: i.title,
-              tokenId: i.tokenId,
-              type: i.tokenType,
-              owner: i.contract.address,
-              image: i.rawMetadata.image,
-              tokenURI: i.tokenUri,
-              timelastupdate: i.timeLastUpdated,
-            };
-            return collection;
-          }),
-        );
-    
-        setOpensea(collections);
+    //fetch all NFTs from opensea
+    const nftsForOwner = await alchemy.nft.getNftsForContract(herosAddress);
+    console.log(nftsForOwner);
+    const collections = await Promise.all(
+      nftsForOwner.nfts.map(async (i) => {
+        let collection = {
+          title: i.title,
+          tokenId: i.tokenId,
+          type: i.tokenType,
+          owner: i.contract.address,
+          image: i.rawMetadata.image,
+          tokenURI: i.tokenUri,
+          timelastupdate: i.timeLastUpdated,
+        };
+        return collection;
+      }),
+    );
+
+    console.log('collections: ', collections);
+    setOpensea(collections);
     setLoaded(true);
   }
 
@@ -106,7 +105,7 @@ const AllNfts = () => {
     loadNFTs();
   }
 
-  if (loaded && !nfts.length && !nftsOpensea.length) 
+  if (loaded && !nfts.length && !nftsOpensea.length)
     return (
       <Main>
         <Box
@@ -198,7 +197,10 @@ const AllNfts = () => {
         </Typography>
       </Box>
       <Container paddingY={'0 !important'}>
-        <PortfolioGrid data={nftsOpensea} buttonName="My Hashed Persona Heros" />
+        <PortfolioGrid
+          data={nftsOpensea}
+          buttonName="My Hashed Persona Heros"
+        />
       </Container>
       <Box
         position={'relative'}

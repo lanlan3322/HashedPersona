@@ -84,36 +84,36 @@ const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
                   <Typography color={'text.secondary'}>
                     {item.description}
                   </Typography>
-                      <TwitterIcon 
-                      onClick={() => {
-                        alert('Go to Twitter!');
-                      }}
-                      sx={{
-                        cursor: 'pointer',
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                          />
-                      <LinkedInIcon 
-                      onClick={() => {
-                        alert('Go to LinkedIn!');
-                      }}
-                      sx={{
-                        cursor: 'pointer',
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                      />
-                      <LinkIcon 
-                      onClick={() => {
-                        alert('Go to Website!');
-                      }}
-                       sx={{
-                        cursor: 'pointer',
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                      />
+                  <TwitterIcon
+                    onClick={() => {
+                      alert('Go to Twitter!');
+                    }}
+                    sx={{
+                      cursor: 'pointer',
+                      mt: { xs: 2, sm: 4 },
+                      mr: { xs: 1, sm: 2 },
+                    }}
+                  />
+                  <LinkedInIcon
+                    onClick={() => {
+                      alert('Go to LinkedIn!');
+                    }}
+                    sx={{
+                      cursor: 'pointer',
+                      mt: { xs: 2, sm: 4 },
+                      mr: { xs: 1, sm: 2 },
+                    }}
+                  />
+                  <LinkIcon
+                    onClick={() => {
+                      alert('Go to Website!');
+                    }}
+                    sx={{
+                      cursor: 'pointer',
+                      mt: { xs: 2, sm: 4 },
+                      mr: { xs: 1, sm: 2 },
+                    }}
+                  />
                   <Link
                     onClick={() => {
                       buttonFunc(item);
@@ -183,28 +183,28 @@ const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
                       <Typography color={'text.secondary'}>
                         {item.description}
                       </Typography>
-                      <TwitterIcon 
-                      fontSize="medium" 
-                      sx={{
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                        />
-                      <LinkedInIcon 
-                      fontSize="medium" 
-                      sx={{
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
+                      <TwitterIcon
+                        fontSize="medium"
+                        sx={{
+                          mt: { xs: 2, sm: 4 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
                       />
-                      <LinkIcon 
-                       sx={{
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                     fontSize="medium" 
+                      <LinkedInIcon
+                        fontSize="medium"
+                        sx={{
+                          mt: { xs: 2, sm: 4 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
                       />
-                                            <Link
+                      <LinkIcon
+                        sx={{
+                          mt: { xs: 2, sm: 4 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
+                        fontSize="medium"
+                      />
+                      <Link
                         onClick={() => {
                           buttonFunc(item);
                         }}
@@ -270,28 +270,28 @@ const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
                       <Typography color={'text.secondary'}>
                         {item.description}
                       </Typography>
-                      <TwitterIcon 
-                      fontSize="medium" 
-                      sx={{
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                        />
-                      <LinkedInIcon 
-                      fontSize="medium" 
-                      sx={{
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
+                      <TwitterIcon
+                        fontSize="medium"
+                        sx={{
+                          mt: { xs: 2, sm: 4 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
                       />
-                      <LinkIcon 
-                       sx={{
-                        mt: { xs: 2, sm: 4 },
-                        mr: { xs: 1, sm: 2 },
-                      }}
-                     fontSize="medium" 
+                      <LinkedInIcon
+                        fontSize="medium"
+                        sx={{
+                          mt: { xs: 2, sm: 4 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
                       />
-                                            <Link
+                      <LinkIcon
+                        sx={{
+                          mt: { xs: 2, sm: 4 },
+                          mr: { xs: 1, sm: 2 },
+                        }}
+                        fontSize="medium"
+                      />
+                      <Link
                         onClick={() => {
                           buttonFunc(item);
                         }}

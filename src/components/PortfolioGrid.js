@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import LinkIcon from '@mui/icons-material/Link';
 import Link from '@mui/material/Link';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import PersonIcon from '@mui/icons-material/Person';
 
 const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
   const theme = useTheme();
@@ -54,7 +54,7 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                       borderRadius={2}
                     >
                       <Typography sx={{ fontWeight: 600 }}>
-                        No. {item.tokenId}
+                        Hero No. {item.tokenId}
                       </Typography>
                     </Box>
                     <Box
@@ -110,33 +110,42 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                       <LinkIcon />
                     </Box>
                     <Typography variant={'subtitle2'} color="text.secondary">
-                      <Link href={item.type} underline="none">
-                      {item.owner}
+                      <Link
+                        href={
+                          'https://testnets.opensea.io/assets/goerli/0xba00184dd17576506e28948609b9cc22d753f69e/' +
+                          item.tokenId
+                        }
+                        underline="none"
+                      >
+                        {item.title}
                       </Link>
                     </Typography>
                   </Box>
-                  <CardActions sx={{ justifyContent: 'flex-end' }}>
-                    <Button
-                      onClick={() => {
-                        buttonFunc(item);
-                      }}
-                      startIcon={
-                        <Box
-                          component={'svg'}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          width={24}
-                          height={24}
-                        >
-                          <ShoppingBagIcon />
-                        </Box>
-                      }
+                  <Box display={'flex'} alignItems={'right'} marginY={2}>
+                    <Box
+                      component={'svg'}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      width={16}
+                      height={16}
+                      marginRight={1}
                     >
-                      {item.title}
-                    </Button>
-                  </CardActions>
+                      <PersonIcon />
+                    </Box>
+                    <Typography variant={'subtitle2'} color="text.secondary">
+                      <Link
+                        href={
+                          'https://testnets.opensea.io/assets/goerli/0xba00184dd17576506e28948609b9cc22d753f69e/' +
+                          item.tokenId
+                        }
+                        underline="none"
+                      >
+                        {item.owner.substring(0,8)+'......'+item.owner.substring(36)}
+                      </Link>
+                    </Typography>
+                  </Box>
                 </CardContent>
               </Box>
             </Box>

@@ -77,10 +77,9 @@ const Home = () => {
     //const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
     const transaction = await marketContract.collect(nft.tokenId);
     await transaction.wait();
-    if(transaction){
+    if (transaction) {
       alert('You have mint the token for this collection successfully.');
-    }
-    else{
+    } else {
       alert('Error in creating NFT! Please try again.');
     }
     loadNFTs();
@@ -91,15 +90,9 @@ const Home = () => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const abi = [
-      "function paidMint() payable"
-    ];
-    const marketContract = new ethers.Contract(
-      herosAddress,
-      abi,
-      signer,
-    );
-    console.log("Connected Account:", await signer.getAddress());
+    const abi = ['function paidMint() payable'];
+    const marketContract = new ethers.Contract(herosAddress, abi, signer);
+    console.log('Connected Account:', await signer.getAddress());
     setClaimingNft(true);
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits('0.01', 'ether');
@@ -110,68 +103,63 @@ const Home = () => {
       await transaction.wait();
     } catch (error) {
       alert('Error in creating NFT! Please try again.');
-      setFeedback(
-        `Click here to mint your hero`
-      );
+      setFeedback(`Click here to mint your hero`);
     }
-    setFeedback(
-      `Click here to mint your hero`
-    );
+    setFeedback(`Click here to mint your hero`);
     setClaimingNft(false);
   }
-  
+
   if (loaded && !nfts.length)
     return (
       <Main>
-    <Box
-    display="flex"
-    flexDirection={{ xs: 'column', md: 'row' }}
-    alignItems={{ xs: 'center', md: 'flex-start' }}
-    justifyContent={{ xs: 'center' }}
-    >
-    <Box
-      component={'img'}
-      src={'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
-      }
-      height={54}
-      sx={{
-        maxWidth: 422,
-      }}
-    />
-    <Box
-      component={Button}
-      variant="contained"
-      color="primary"
-      size="large"
-      height={54}
-      marginLeft={{ md: 2 }}
-      href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
-    >
-      View Hashed Persona Super Heros
-    </Box>
-    <Box
-      disabled={claimingNft ? true : false}
-      component={Button}
-      variant="contained"
-      color="primary"
-      size="large"
-      height={54}
-      marginLeft={{ md: 2 }}
-      onClick={(e) => {
-        e.preventDefault();
-        setFeedback(
-          `Please wait ... minting now ... ...`
-        );
-        MintHPHeros();
-      }}
-    >
-                {feedback}
-            </Box>
-  </Box>
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', md: 'row' }}
+          alignItems={{ xs: 'center', md: 'flex-start' }}
+          justifyContent={{ xs: 'center' }}
+        >
+          <Box
+            component={'img'}
+            src={
+              'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
+            }
+            height={54}
+            sx={{
+              maxWidth: 422,
+            }}
+          />
+          <Box
+            component={Button}
+            variant="contained"
+            color="primary"
+            size="large"
+            height={54}
+            marginLeft={{ md: 2 }}
+            href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
+          >
+            View Hashed Persona Super Heros
+          </Box>
+          <Box
+            disabled={claimingNft ? true : false}
+            component={Button}
+            variant="contained"
+            color="primary"
+            size="large"
+            height={54}
+            marginLeft={{ md: 2 }}
+            onClick={(e) => {
+              e.preventDefault();
+              setFeedback(`Please wait ... minting now ... ...`);
+              MintHPHeros();
+            }}
+          >
+            {feedback}
+          </Box>
+        </Box>
         <Container>
           <Hero />
         </Container>
-         <Box
+        <Box
           position={'relative'}
           marginTop={{ xs: 4, md: 6 }}
           sx={{
@@ -201,55 +189,56 @@ const Home = () => {
             ></path>
           </Box>
         </Box>
-       <Container>
+        <Container>
           <Contact />
         </Container>
       </Main>
     );
   return (
     <Main>
-    <Box
-    display="flex"
-    flexDirection={{ xs: 'column', md: 'row' }}
-    alignItems={{ xs: 'center', md: 'flex-start' }}
-    justifyContent={{ xs: 'center' }}
-    >
-    <Box
-      component={'img'}
-      src={'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
-      }
-      height={54}
-      sx={{
-        maxWidth: 422,
-      }}
-    />
-    <Box
-      component={Button}
-      variant="contained"
-      color="primary"
-      size="large"
-      height={54}
-      marginLeft={{ md: 2 }}
-      href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
-    >
-      View Hashed Persona Super Heros
-    </Box>
-    <Box
-      disabled={claimingNft ? true : false}
-      component={Button}
-      variant="contained"
-      color="primary"
-      size="large"
-      height={54}
-      marginLeft={{ md: 2 }}
-      onClick={(e) => {
-        e.preventDefault();
-        MintHPHeros();
-      }}
-    >
-        {feedback}
-    </Box>
-  </Box>
+      <Box
+        display="flex"
+        flexDirection={{ xs: 'column', md: 'row' }}
+        alignItems={{ xs: 'center', md: 'flex-start' }}
+        justifyContent={{ xs: 'center' }}
+      >
+        <Box
+          component={'img'}
+          src={
+            'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
+          }
+          height={54}
+          sx={{
+            maxWidth: 422,
+          }}
+        />
+        <Box
+          component={Button}
+          variant="contained"
+          color="primary"
+          size="large"
+          height={54}
+          marginLeft={{ md: 2 }}
+          href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
+        >
+          View Hashed Persona Super Heros
+        </Box>
+        <Box
+          disabled={claimingNft ? true : false}
+          component={Button}
+          variant="contained"
+          color="primary"
+          size="large"
+          height={54}
+          marginLeft={{ md: 2 }}
+          onClick={(e) => {
+            e.preventDefault();
+            MintHPHeros();
+          }}
+        >
+          {feedback}
+        </Box>
+      </Box>
       <Container>
         <Hero />
       </Container>
