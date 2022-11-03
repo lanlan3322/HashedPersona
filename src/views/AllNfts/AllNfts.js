@@ -6,6 +6,7 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Contact from 'components/Contact';
 import PortfolioGrid from 'components/PortfolioGrid';
+import CollectionGrid from 'components/CollectionGrid';
 import Typography from '@mui/material/Typography';
 
 import axios from 'axios';
@@ -170,7 +171,7 @@ const AllNfts = () => {
         </Typography>
       </Box>
       <Container>
-        <PortfolioGrid data={nfts} buttonName={'Buy'} buttonFunc={buyNft} />
+        <CollectionGrid data={nfts} buttonName={'Mint'} buttonFunc={buyNft} />
       </Container>
       <Box marginBottom={4}>
         <Typography

@@ -10,7 +10,6 @@ import Grid from '@mui/material/Grid';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LinkIcon from '@mui/icons-material/Link';
-import IconButton from '@mui/material/IconButton';
 
 const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
   const theme = useTheme();

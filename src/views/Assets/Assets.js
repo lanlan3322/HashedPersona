@@ -6,6 +6,7 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Hero from 'components/Hero';
 import PortfolioGrid from 'components/PortfolioGrid';
+import CollectionGrid from 'components/CollectionGrid';
 import Contact from 'components/Contact';
 import Typography from '@mui/material/Typography';
 
@@ -164,7 +165,7 @@ export default function CreateItem() {
         </Typography>
       </Box>
       <Container paddingY={'0 !important'} marginBottom={6}>
-        <PortfolioGrid data={nfts} buttonName="List For Share" />
+        <CollectionGrid data={nfts} buttonName="My collections" />
       </Container>
       <Box marginBottom={4}>
         <Typography
