@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LinkIcon from '@mui/icons-material/Link';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
   const theme = useTheme();
@@ -114,6 +115,34 @@ const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
                       mr: { xs: 1, sm: 2 },
                     }}
                   />
+                      <Box marginY={2}>
+                        <Typography
+                          color={'primary'}
+                          variant={'subtitle2'}
+                          fontWeight={600}
+                          sx={{ textTransform: 'uppercase' }}
+                        >
+                          Features Enabled
+                        </Typography>
+                  <Link
+                    onClick={() => {
+                      alert('Luck draw is enabled!');
+                    }}
+                    variant={'subtitle2'}
+                    fontWeight={700}
+                    underline={'hover'}
+                    sx={{
+                      textTransform: 'uppercase',
+                      display: 'block',
+                      cursor: 'pointer',
+                      mr: { xs: 1, sm: 2 },
+                    }}
+                  >
+                         Luck draw
+                        <CheckCircleIcon
+                        />
+                  </Link>
+                      </Box>
                   <Link
                     onClick={() => {
                       buttonFunc(item);

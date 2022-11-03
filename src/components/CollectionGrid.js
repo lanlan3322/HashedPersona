@@ -14,6 +14,9 @@ import Link from '@mui/material/Link';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import StarIcon from '@mui/icons-material/Star';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 const CollectionGrid = ({ data = [], buttonFunc, buttonName }) => {
   const theme = useTheme();
@@ -148,6 +151,56 @@ const CollectionGrid = ({ data = [], buttonFunc, buttonName }) => {
                     >
                       {item.title}
                     </Link>
+                  </Box>
+                  <Box>
+                    <Typography
+                      color={'primary'}
+                      variant={'subtitle2'}
+                      fontWeight={600}
+                      sx={{ textTransform: 'uppercase' }}
+                    >
+                      Level
+                    </Typography>
+                    <StarIcon
+                      onClick={() => {
+                        alert('Your level is 4.5');
+                      }}
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <StarIcon
+                      onClick={() => {
+                        alert('Your level is 3.5');
+                      }}
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <StarIcon
+                      onClick={() => {
+                        alert('Your level is 3.5');
+                      }}
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <StarHalfIcon
+                      onClick={() => {
+                        alert('Your level is 3.5');
+                      }}
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                    />
+                    <StarOutlineIcon
+                      onClick={() => {
+                        alert('Your level is 3.5');
+                      }}
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                    />
                   </Box>
                 </CardContent>
               </Box>
