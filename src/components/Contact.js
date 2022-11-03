@@ -22,7 +22,7 @@ const Contact = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Show your NFTs for your fans to collect (ERC721).
+          Show your NFTs for your fans to collect.
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
