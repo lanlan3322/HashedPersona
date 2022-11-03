@@ -137,8 +137,8 @@ const PortfolioGrid = ({ data = [], buttonFunc, buttonName }) => {
                     <Typography variant={'subtitle2'} color="text.secondary">
                       <Link
                         href={
-                          'https://testnets.opensea.io/assets/goerli/0xba00184dd17576506e28948609b9cc22d753f69e/' +
-                          item.tokenId
+                          'https://goerli.etherscan.io/address/' +
+                          item.owner
                         }
                         underline="none"
                       >
