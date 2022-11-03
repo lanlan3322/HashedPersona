@@ -11,6 +11,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LinkIcon from '@mui/icons-material/Link';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
   const theme = useTheme();
@@ -118,11 +119,11 @@ const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
                       <Box marginY={2}>
                         <Typography
                           color={'primary'}
-                          variant={'subtitle2'}
+                          variant={'subtitle1'}
                           fontWeight={600}
                           sx={{ textTransform: 'uppercase' }}
                         >
-                          Features Enabled
+                          Features
                         </Typography>
                   <Link
                     onClick={() => {
@@ -135,11 +136,50 @@ const HomeGrid = ({ data = [], buttonFunc, buttonName }) => {
                       textTransform: 'uppercase',
                       display: 'block',
                       cursor: 'pointer',
-                      mr: { xs: 1, sm: 2 },
+                      ml: { xs: 1, sm: 3 },
+                      mt: { xs: 2, sm: 1 },
                     }}
                   >
                          Luck draw
                         <CheckCircleIcon
+                        />
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      alert('Physical meetup is enabled!');
+                    }}
+                    variant={'subtitle2'}
+                    fontWeight={700}
+                    underline={'hover'}
+                    sx={{
+                      textTransform: 'uppercase',
+                      display: 'block',
+                      cursor: 'pointer',
+                      ml: { xs: 1, sm: 3 },
+                      mt: { xs: 2, sm: 1 },
+                    }}
+                  >
+                         Physical meetup
+                        <CheckCircleIcon
+                        />
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      alert('Profit sharing is disabled!');
+                    }}
+                    variant={'subtitle2'}
+                    fontWeight={700}
+                    underline={'hover'}
+                    sx={{
+                      textTransform: 'uppercase',
+                      display: 'block',
+                      cursor: 'pointer',
+                      ml: { xs: 1, sm: 3 },
+                      mt: { xs: 2, sm: 1 },
+                    }}
+                  >
+                         Profit sharing
+                        <CancelIcon
                         />
                   </Link>
                       </Box>
