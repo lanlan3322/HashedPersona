@@ -62,7 +62,9 @@ export default function CreateItem() {
           seller: i.seller,
           owner: i.owner,
           image: meta.data.image,
-          tokenURI,
+          name: meta.data.name,
+          description: meta.data.description,
+          address: meta.data.address,
         };
         return item;
       }),

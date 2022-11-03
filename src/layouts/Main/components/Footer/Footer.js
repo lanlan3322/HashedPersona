@@ -24,7 +24,7 @@ const Footer = () => {
             display={'flex'}
             component="a"
             href="/"
-            title="theFront"
+            title="HashedPersona"
             width={110}
           >
             <Box

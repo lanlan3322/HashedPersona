@@ -146,7 +146,7 @@ const CollectionGrid = ({ data = [], buttonFunc, buttonName }) => {
                         mt: { xs: 2, sm: 4 },
                       }}
                     >
-                      {buttonName}
+                      {item.title}
                     </Link>
                   </Box>
                 </CardContent>

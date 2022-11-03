@@ -22,7 +22,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component="a"
         href="/"
-        title="Virtualground"
+        title="HashedPersona"
         width={{ xs: 100, md: 120 }}
       >
         <Box
