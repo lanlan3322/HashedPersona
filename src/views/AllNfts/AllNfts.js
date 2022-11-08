@@ -39,9 +39,10 @@ const AllNfts = () => {
       Marketplace.abi,
       provider,
     );
-    const data = await marketContract.fetchMarketItems();
+    try {
+      const data = await marketContract.fetchMarketItems();
 
-    const items = await Promise.all(
+      const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await marketContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
@@ -58,9 +59,13 @@ const AllNfts = () => {
         };
         return item;
       }),
-    );
-
-    setNfts(items);
+      );
+      console.log('items: ', items);
+      setNfts(items);
+      setLoaded(true);
+    } catch (error) {
+      console.log('Error in fetchMarketItems!');
+    }
 
     //fetch all NFTs from opensea
     const nftsForOwner = await alchemy.nft.getNftsForContract(herosAddress);

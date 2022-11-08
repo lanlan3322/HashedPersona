@@ -14,7 +14,7 @@ const Contact = () => {
           align={'center'}
           gutterBottom
         >
-          Import your NFT collection
+          Draw a lucky winner from your NFT collectors
         </Typography>
         <Typography
           variant={'h6'}
@@ -22,7 +22,7 @@ const Contact = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Show your NFTs for your fans to collect.
+          Reward your NFT collectors from this lucky draw
         </Typography>
       </Box>
       <Box maxWidth={600} margin={'0 auto'}>
@@ -63,7 +63,7 @@ const Contact = () => {
               marginTop={{ xs: 2, md: 0 }}
               marginLeft={{ md: 2 }}
             >
-              Import
+              Lucky Draw
             </Box>
           </Box>
         </Box>
