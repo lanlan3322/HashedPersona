@@ -12,7 +12,6 @@ import SendIcon from '@mui/icons-material/Send';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
 
 import web3 from 'web3';
 import Web3Modal from 'web3modal';
