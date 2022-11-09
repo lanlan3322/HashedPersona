@@ -85,12 +85,9 @@ const Contact = () => {
         >
           <Box
             display="flex"
-            flexDirection={{ xs: 'column', md: 'row' }}
-            alignItems={{ xs: 'center', md: 'flex-start' }}
             justifyContent={{ xs: 'center' }}
           >
             <Box
-              flex={'1 1 auto'}
               component={TextField}
               label="Hashed Persona Heros"
               variant="outlined"
@@ -102,18 +99,10 @@ const Contact = () => {
                 maxWidth: 442,
               }}
             />
-          <Box
-            display="flex"
-            flexDirection={{ xs: 'column', md: 'row' }}
-            alignItems={{ xs: 'center', md: 'flex-start' }}
-            justifyContent={{ xs: 'center' }}
-          >
-
               <LoadingButton
               variant="contained"
               color="primary"
-              size="large"
-              fullWidth
+              size="medium"
                 endIcon={<SendIcon />}
                 type={'Button'}
                 onClick={(e) => {
@@ -126,7 +115,6 @@ const Contact = () => {
               >
                 Luck Draw
               </LoadingButton>
-              </Box>
          </Box>
         </Box>
         <Box marginTop={8}>
