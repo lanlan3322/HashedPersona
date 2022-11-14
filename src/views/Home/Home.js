@@ -22,14 +22,31 @@ const Home = () => {
   const [nfts, setNfts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click here to mint your hero`);
+  const [feedback, setFeedback] = useState(`Mint your hero (0.01 goerliETH)`);
 
   useEffect(() => {
     loadNFTs();
   }, []);
 
   async function loadNFTs() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // A Web3Provider wraps a standard Web3 provider, which is
+    // what MetaMask injects as window.ethereum into each page
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    provider.on("network", (newNetwork, oldNetwork) => {
+      // When a Provider makes its initial connection, it emits a "network"
+      // event with a null oldNetwork along with the newNetwork. So, if the
+      // oldNetwork exists, it represents a changing network
+      if (oldNetwork) {
+          window.location.reload();
+      }
+    });
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send("eth_requestAccounts", []);
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner();
     const marketContract = new ethers.Contract(
       marketAddress,
       Marketplace.abi,
@@ -88,9 +105,22 @@ const Home = () => {
   }
 
   async function MintHPHeros() {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
+    if (!window.ethereum) {
+      alert("💡 Please connect your Metamask wallet!")
+      setFeedback(`Mint your hero (0.01 goerliETH)`);
+      setClaimingNft(false);
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const network = await provider.getNetwork();
+    const chainId = network.chainId;
+    if (chainId !== 5) {
+      alert("💡 Please switch to Goerli Testnet!")
+      setFeedback(`Mint your hero (0.01 goerliETH)`);
+      setClaimingNft(false);
+      return;
+    }
+
     const signer = provider.getSigner();
     const abi = ['function paidMint() payable'];
     const marketContract = new ethers.Contract(herosAddress, abi, signer);
@@ -98,16 +128,21 @@ const Home = () => {
     setClaimingNft(true);
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits('0.01', 'ether');
-    const transaction = await marketContract.paidMint({
-      value: price,
-    });
     try {
-      await transaction.wait();
+      const transaction = await marketContract.paidMint({
+      value: price,
+      });
     } catch (error) {
-      alert('Error in creating NFT! Please try again.');
-      setFeedback(`Click here to mint your hero`);
+      if (error.code === "ACTION_REJECTED") {
+        alert('User rejected request!');
+      }
+      else{
+        alert('Error in creating NFT! Please try again.');
+      }
+      setFeedback(`Mint your hero (0.01 goerliETH)`);
+      setClaimingNft(false);
     }
-    setFeedback(`Click here to mint your hero`);
+    setFeedback(`Mint your hero (0.01 goerliETH)`);
     setClaimingNft(false);
   }
 
