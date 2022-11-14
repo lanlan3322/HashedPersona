@@ -26,6 +26,8 @@ const Home = () => {
 
   useEffect(() => {
     loadNFTs();
+    window.ethereum &&
+          window.ethereum.on("accountsChanged", () => window.location.reload());
   }, []);
 
   async function loadNFTs() {
@@ -40,6 +42,7 @@ const Home = () => {
           window.location.reload();
       }
     });
+
     // MetaMask requires requesting permission to connect users accounts
     await provider.send("eth_requestAccounts", []);
 
