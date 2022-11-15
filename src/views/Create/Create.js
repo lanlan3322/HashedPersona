@@ -7,12 +7,33 @@ import Container from 'components/Container';
 import Hero from 'components/Hero';
 import Contact from 'components/Contact';
 import { Form } from './components';
+import Button from '@mui/material/Button';
 
 export default function CreateItem() {
   const theme = useTheme();
 
   return (
     <Main>
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', md: 'row' }}
+          alignItems={{ xs: 'center', md: 'flex-start' }}
+          justifyContent={{ xs: 'center' }}
+        >
+          <Button 
+          variant="contained" 
+          color="warning"
+          onClick={(e) => {
+            e.preventDefault();
+            window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x5' }], // chainId must be in hexadecimal numbers
+            });
+          }}
+          >
+            Wrong network! Switch to Goerli Testnet
+          </Button>
+        </Box>
       <Container>
         <Hero title="Next generation NFTs." />
       </Container>
