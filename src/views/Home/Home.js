@@ -20,31 +20,37 @@ import Marketplace from '/artifacts/contracts/HashedPersona.sol/HashedPersona.js
 const Home = () => {
   const theme = useTheme();
   const [nfts, setNfts] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
   const [claimingNft, setClaimingNft] = useState(false);
   const [feedback, setFeedback] = useState(`Mint your hero (0.01 GoerliETH)`);
 
   useEffect(() => {
     loadNFTs();
     window.ethereum &&
-          window.ethereum.on("accountsChanged", () => window.location.reload());
+      window.ethereum.on('accountsChanged', () => window.location.reload());
   }, []);
 
   async function loadNFTs() {
     // A Web3Provider wraps a standard Web3 provider, which is
     // what MetaMask injects as window.ethereum into each page
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    provider.on("network", (newNetwork, oldNetwork) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+    provider.on('network', (newNetwork, oldNetwork) => {
       // When a Provider makes its initial connection, it emits a "network"
       // event with a null oldNetwork along with the newNetwork. So, if the
       // oldNetwork exists, it represents a changing network
       if (oldNetwork) {
-          window.location.reload();
+        window.location.reload();
       }
     });
+    const network = await provider.getNetwork();
+    const chainId = network.chainId;
+    if (chainId === 5) {
+      setLoaded(false);
+      return;
+    }
 
     // MetaMask requires requesting permission to connect users accounts
-    await provider.send("eth_requestAccounts", []);
+    await provider.send('eth_requestAccounts', []);
 
     // The MetaMask plugin also allows signing transactions to
     // send ether and pay to change state within the blockchain.
@@ -109,7 +115,7 @@ const Home = () => {
 
   async function MintHPHeros() {
     if (!window.ethereum) {
-      alert("💡 Please connect your Metamask wallet!")
+      alert('💡 Please connect your Metamask wallet!');
       setFeedback(`Mint your hero (0.01 GoerliETH)`);
       setClaimingNft(false);
       return;
@@ -118,7 +124,7 @@ const Home = () => {
     const network = await provider.getNetwork();
     const chainId = network.chainId;
     if (chainId !== 5) {
-      alert("💡 Please switch to Goerli Testnet!")
+      alert('💡 Please switch to Goerli Testnet!');
       setFeedback(`Mint your hero (0.01 GoerliETH)`);
       setClaimingNft(false);
       return;
@@ -132,17 +138,15 @@ const Home = () => {
     const price = ethers.utils.parseUnits('0.01', 'ether');
     try {
       const transaction = await marketContract.paidMint({
-      value: price,
+        value: price,
       });
       await transaction.wait();
     } catch (error) {
-      if (error.code === "ACTION_REJECTED") {
+      if (error.code === 'ACTION_REJECTED') {
         alert('User rejected request!');
-      }
-      else if (error.code === "INSUFFICIENT_FUNDS") {
+      } else if (error.code === 'INSUFFICIENT_FUNDS') {
         alert('Not enough ETH to mint!');
-      }
-      else{
+      } else {
         alert('Error in creating NFT! Please try again.');
       }
       setFeedback(`Mint your hero (0.01 GoerliETH)`);
@@ -152,7 +156,7 @@ const Home = () => {
     setClaimingNft(false);
   }
 
-  if (loaded && !nfts.length)
+  if (loaded)
     return (
       <Main>
         <Box
@@ -161,44 +165,19 @@ const Home = () => {
           alignItems={{ xs: 'center', md: 'flex-start' }}
           justifyContent={{ xs: 'center' }}
         >
-          <Box
-            component={'img'}
-            src={
-              'https://i.seadn.io/gae/wHDa50QAR3o-hR9JPuQ9z7fUunpgSH-UzdtzBe07hM7jLuOPEYGq7ToLE4e7W1LaQQFcvb9lwfjC6cnXB6deAhc7c2Oe9vTlPLLrWw?auto=format&w=1000'
-            }
-            height={54}
-            sx={{
-              maxWidth: 422,
-            }}
-          />
-          <Box
-            component={Button}
-            variant="contained"
-            color="primary"
-            size="large"
-            height={54}
-            marginLeft={{ md: 2 }}
-            href="https://testnets.opensea.io/collection/hashed-persona-heros-alpha-v2"
+          <Button 
+          variant="contained" 
+          color="warning"
+          onClick={(e) => {
+            e.preventDefault();
+            window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x5' }], // chainId must be in hexadecimal numbers
+            });
+          }}
           >
-            View Hashed Persona Super Heros
-          </Box>
-          <Box
-            disabled={claimingNft ? true : false}
-            component={Button}
-            variant="contained"
-            color="primary"
-            size="large"
-            height={54}
-            marginLeft={{ md: 2 }}
-            onClick={(e) => {
-              e.preventDefault();
-              setFeedback(`Please wait ... minting now ... ...`);
-              setClaimingNft(true);
-              MintHPHeros();
-            }}
-          >
-            {feedback}
-          </Box>
+            Wrong network! Click to switch to Goerli Testnet
+          </Button>
         </Box>
         <Container>
           <Hero />
@@ -277,6 +256,8 @@ const Home = () => {
           marginLeft={{ md: 2 }}
           onClick={(e) => {
             e.preventDefault();
+            setFeedback(`Please wait ... minting now ... ...`);
+            setClaimingNft(true);
             MintHPHeros();
           }}
         >

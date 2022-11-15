@@ -126,6 +126,7 @@ export const Login = () => {
         type: 'RESET_WEB3_PROVIDER',
       });
       setAnchorEl(null);
+      window.location.reload();
     },
     [provider],
   );
