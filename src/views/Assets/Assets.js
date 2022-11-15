@@ -32,6 +32,8 @@ export default function CreateItem() {
 
   useEffect(() => {
     loadNFTs();
+    window.ethereum &&
+          window.ethereum.on("accountsChanged", () => window.location.reload());
   }, []);
 
   async function loadNFTs() {

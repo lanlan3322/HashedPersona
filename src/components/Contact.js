@@ -14,6 +14,7 @@ const Contact = () => {
   const [luckynumber, setLuckynumber] = useState(0);
   const [totalnumber, setTotalnumber] = useState(0);
   const [imgLink, setImglink] = useState('');
+  const [luckywinner, setLuckyWinner] = useState(0);
   const settings = {
     apiKey: process.env.REACT_APP_ALCHEMY_PRIVATE_KEY,
     network: Network.ETH_GOERLI,
@@ -41,9 +42,10 @@ const Contact = () => {
   
       console.log('collections: ', collections);
       const count = collections.length;
-      const rand = Math.floor(Math.random() * count)+1;
+      const rand = Math.floor(Math.random() * count);
       setTotalnumber(count);
       setLuckynumber(rand);
+      setLuckyWinner(collections[rand-1].owner);
       setImglink(collections[rand-1].image);
     } catch (error) {
       setLoading(false);
@@ -133,8 +135,19 @@ const Contact = () => {
             component={'img'}
             align={'center'}
             src={luckynumber>0?imgLink:''}
-
           />
+      </Box>
+      <Box marginTop={8}>
+        <Typography
+          variant={'h5'}
+          component={'p'}
+          color={'text.secondary'}
+          align={'center'}
+        >
+          {totalnumber>0?
+          'Owner: ' + luckywinner
+        : ''}
+        </Typography>
       </Box>
     </Box>
   );

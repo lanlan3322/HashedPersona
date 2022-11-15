@@ -9,7 +9,7 @@ import { providers } from 'ethers';
 import WalletLink from '@coinbase/wallet-sdk';
 import Web3Modal from 'web3modal';
 
-const INFURA_ID = 'a1f754ea74b24beea097773f476894e0';
+const INFURA_ID = process.env.INFURA_IPFS_ID;
 
 const providerOptions = {
   walletconnect: {

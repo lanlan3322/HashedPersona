@@ -22,7 +22,7 @@ const Home = () => {
   const [nfts, setNfts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Mint your hero (0.01 goerliETH)`);
+  const [feedback, setFeedback] = useState(`Mint your hero (0.01 GoerliETH)`);
 
   useEffect(() => {
     loadNFTs();
@@ -110,7 +110,7 @@ const Home = () => {
   async function MintHPHeros() {
     if (!window.ethereum) {
       alert("💡 Please connect your Metamask wallet!")
-      setFeedback(`Mint your hero (0.01 goerliETH)`);
+      setFeedback(`Mint your hero (0.01 GoerliETH)`);
       setClaimingNft(false);
       return;
     }
@@ -119,7 +119,7 @@ const Home = () => {
     const chainId = network.chainId;
     if (chainId !== 5) {
       alert("💡 Please switch to Goerli Testnet!")
-      setFeedback(`Mint your hero (0.01 goerliETH)`);
+      setFeedback(`Mint your hero (0.01 GoerliETH)`);
       setClaimingNft(false);
       return;
     }
@@ -128,24 +128,27 @@ const Home = () => {
     const abi = ['function paidMint() payable'];
     const marketContract = new ethers.Contract(herosAddress, abi, signer);
     console.log('Connected Account:', await signer.getAddress());
-    setClaimingNft(true);
     /* user will be prompted to pay the asking proces to complete the transaction */
     const price = ethers.utils.parseUnits('0.01', 'ether');
     try {
       const transaction = await marketContract.paidMint({
       value: price,
       });
+      await transaction.wait();
     } catch (error) {
       if (error.code === "ACTION_REJECTED") {
         alert('User rejected request!');
       }
+      else if (error.code === "INSUFFICIENT_FUNDS") {
+        alert('Not enough ETH to mint!');
+      }
       else{
         alert('Error in creating NFT! Please try again.');
       }
-      setFeedback(`Mint your hero (0.01 goerliETH)`);
+      setFeedback(`Mint your hero (0.01 GoerliETH)`);
       setClaimingNft(false);
     }
-    setFeedback(`Mint your hero (0.01 goerliETH)`);
+    setFeedback(`Mint your hero (0.01 GoerliETH)`);
     setClaimingNft(false);
   }
 
@@ -190,6 +193,7 @@ const Home = () => {
             onClick={(e) => {
               e.preventDefault();
               setFeedback(`Please wait ... minting now ... ...`);
+              setClaimingNft(true);
               MintHPHeros();
             }}
           >
