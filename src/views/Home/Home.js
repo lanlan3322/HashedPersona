@@ -176,7 +176,7 @@ const Home = () => {
             });
           }}
           >
-            Wrong network! Click to switch to Goerli Testnet
+            Wrong network! Switch to Goerli Testnet
           </Button>
         </Box>
         <Container>
