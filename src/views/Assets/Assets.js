@@ -192,7 +192,7 @@ export default function CreateItem() {
             fontWeight: 700,
           }}
         >
-          Browse my minted Heros
+          Browse my Hashed Persona Heros
         </Typography>
       </Box>
       <Container paddingY={'0 !important'}>
